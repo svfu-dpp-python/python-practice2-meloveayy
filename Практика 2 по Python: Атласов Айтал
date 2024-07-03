@@ -1,0 +1,38 @@
+# worker.py
+class Worker:
+    tax_rate = 10
+
+    def __init__(self, name, salary):
+        self.name = name
+        self.salary = salary
+
+    def salary(self):
+        return self.salary
+
+    def tax(self):
+        return self.salary * self.tax_rate / 100
+
+# bonus_worker.py
+from worker import Worker
+
+class BonusWorker(Worker):
+    def __init__(self, name, salary, bonus):
+        super().__init__(name, salary)
+        self.bonus = bonus
+
+    def salary(self):
+        return self.salary * (1 + self.bonus / 100)
+
+# main.py
+from worker import Worker
+
+def format_worker(worker):
+    name = worker.name.ljust(30)
+    salary = f"{worker.salary():10.2f}"
+    tax = f"{worker.tax():10.2f}"
+    net_salary = f"{worker.salary() - worker.tax():10.2f}"
+    return f"{name}{salary}{tax}{net_salary}"
+
+if __name__ == "__main__":
+    worker = Worker("Иван Петров", 50000)
+    print(format_worker(worker))
